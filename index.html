@@ -194,8 +194,8 @@
     .day:last-child { border-right: 0; }
 
     .day.today {
-      background: var(--today);
-      box-shadow: inset 0 0 0 1px rgba(255,46,99,0.32);
+      background: linear-gradient(135deg, rgba(255, 46, 99, 0.34), rgba(255, 122, 26, 0.20));
+      box-shadow: inset 0 0 0 2px rgba(255,46,99,0.72), 0 0 26px rgba(255,46,99,0.18);
     }
 
     .day-name {
@@ -620,6 +620,10 @@
 
     function formatDate(date) { return pad(date.getDate()) + "-" + pad(date.getMonth() + 1); }
 
+    function dateKey(date) {
+      return date.getFullYear() + "-" + pad(date.getMonth() + 1) + "-" + pad(date.getDate());
+    }
+
     function isoWeek(date) {
       const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
       const dayNum = d.getUTCDay() || 7;
@@ -645,10 +649,11 @@
 
       DAY_KEYS.forEach((key, index) => {
         const dayDate = addDays(start, index);
-        const isToday = dayDate.toDateString() === today.toDateString();
+        const isToday = dateKey(dayDate) === dateKey(today);
         const team = item.days[key] || "No chore duty";
+        const todayStyle = isToday ? ' style="background: linear-gradient(135deg, rgba(255, 46, 99, 0.34), rgba(255, 122, 26, 0.20)); box-shadow: inset 0 0 0 2px rgba(255,46,99,0.72), 0 0 26px rgba(255,46,99,0.18);"' : "";
         dayHtml += `
-          <article class="day ${isToday ? "today" : ""}">
+          <article class="day ${isToday ? "today" : ""}" data-date="${dateKey(dayDate)}"${todayStyle}>
             <div class="day-name">${DAY_LABELS[index]} · ${formatDate(dayDate)}</div>
             <div class="team">${team}</div>
           </article>`;
