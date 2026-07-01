@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///D:/narrowcasting/html/corvee/index.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -654,9 +653,11 @@
     }
   }
 ];
+
     const DAY_KEYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
     const DAY_LABELS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-    
+    let lastRenderedWeekStart = "";
+
     function pad(n) { return n < 10 ? "0" + n : "" + n; }
 
     function dateFromISO(value) {
@@ -665,7 +666,7 @@
     }
 
     function addDays(date, days) {
-      const d = new Date(date.getTime());
+      const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
       d.setDate(d.getDate() + days);
       return d;
     }
@@ -688,26 +689,38 @@
       const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
       const day = d.getDay() || 7;
       d.setDate(d.getDate() - day + 1);
-      d.setHours(0,0,0,0);
+      d.setHours(0, 0, 0, 0);
       return d;
+    }
+
+    function findWeekByStart(startDate) {
+      const key = dateKey(startDate);
+      return ROOSTER.find(item => item.start === key);
+    }
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
 
     function renderWeek(item, label, today) {
       const start = dateFromISO(item.start);
       const end = addDays(start, 4);
-      const todayWeekStart = startOfISOWeek(today).getTime();
-      const thisWeekStart = start.getTime();
       let dayHtml = "";
 
       DAY_KEYS.forEach((key, index) => {
         const dayDate = addDays(start, index);
         const isToday = dateKey(dayDate) === dateKey(today);
         const team = item.days[key] || "No chore duty";
-        const todayStyle = isToday ? ' style="background: linear-gradient(135deg, rgba(255, 46, 99, 0.34), rgba(255, 122, 26, 0.20)); box-shadow: inset 0 0 0 2px rgba(255,46,99,0.72), 0 0 26px rgba(255,46,99,0.18);"' : "";
+
         dayHtml += `
-          <article class="day ${isToday ? "today" : ""}" data-date="${dateKey(dayDate)}"${todayStyle}>
+          <article class="day ${isToday ? "today" : ""}" data-date="${dateKey(dayDate)}">
             <div class="day-name">${DAY_LABELS[index]} · ${formatDate(dayDate)}</div>
-            <div class="team">${team}</div>
+            <div class="team">${escapeHtml(team)}</div>
           </article>`;
       });
 
@@ -715,7 +728,7 @@
         <section class="week-block">
           <header class="week-head">
             <h2 class="week-title">${label} · Week ${item.week}</h2>
-            <div class="week-range">${formatDate(start)} to ${formatDate(end)} · ${item.quarter}</div>
+            <div class="week-range">${formatDate(start)} until ${formatDate(end)} · ${escapeHtml(item.quarter)}</div>
           </header>
           <div class="days">${dayHtml}</div>
         </section>`;
@@ -723,18 +736,18 @@
 
     function render() {
       const today = new Date();
-      const currentWeek = isoWeek(today);
-      const current = ROOSTER.find(item => item.week === currentWeek);
-      const next = ROOSTER.find(item => item.week === currentWeek + 1);
+      const currentStart = startOfISOWeek(today);
+      const nextStart = addDays(currentStart, 7);
+      const current = findWeekByStart(currentStart);
+      const next = findWeekByStart(nextStart);
       const container = document.getElementById("weeks");
-      const label = document.getElementById("card-label");
       const copy = document.getElementById("today-copy");
+      const currentWeek = isoWeek(today);
 
-      label.textContent = `Today: ${formatDate(today)} · Week ${currentWeek}`;
-      copy.textContent = "";
+      if (copy) copy.textContent = "";
 
       if (!current && !next) {
-        container.innerHTML = `<div class="status">No schedule found for week ${currentWeek} and week ${currentWeek + 1}.</div>`;
+        container.innerHTML = `<div class="status">No schedule found for week ${currentWeek} and week ${isoWeek(addDays(today, 7))}.</div>`;
         return;
       }
 
@@ -742,11 +755,37 @@
       if (current) html += renderWeek(current, "This Week", today);
       if (next) html += renderWeek(next, "Next Week", today);
       container.innerHTML = html;
+      lastRenderedWeekStart = dateKey(currentStart);
+    }
+
+    function refreshTodayHighlight() {
+      const today = new Date();
+      const currentStartKey = dateKey(startOfISOWeek(today));
+
+      if (currentStartKey !== lastRenderedWeekStart) {
+        render();
+        return;
+      }
+
+      const todayKey = dateKey(today);
+      document.querySelectorAll(".day").forEach(day => {
+        day.classList.toggle("today", day.getAttribute("data-date") === todayKey);
+      });
+    }
+
+    function millisecondsUntilNextRefresh() {
+      const now = new Date();
+      const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 2, 0, 0);
+      return next.getTime() - now.getTime();
     }
 
     render();
+    setInterval(refreshTodayHighlight, 60 * 1000);
     setInterval(render, 30 * 60 * 1000);
-    setTimeout(function () { window.location.reload(); }, 6 * 60 * 60 * 1000);
+    setTimeout(function () {
+      render();
+      setInterval(render, 24 * 60 * 60 * 1000);
+    }, millisecondsUntilNextRefresh());
   </script>
 
 </body></html>
