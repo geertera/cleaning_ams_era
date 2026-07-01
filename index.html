@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Chore Planning</title>
   <style>
     :root {
@@ -15,8 +16,6 @@
       --muted: rgba(255, 255, 255, 0.68);
       --card: rgba(10, 10, 10, 0.76);
       --border: rgba(255, 255, 255, 0.15);
-      --soft: rgba(255, 255, 255, 0.08);
-      --today: rgba(255, 46, 99, 0.18);
     }
 
     * { box-sizing: border-box; }
@@ -83,15 +82,6 @@
 
     .hero { padding-top: 48px; }
 
-    .eyebrow {
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.24em;
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 24px;
-    }
-
     .title {
       margin: 0;
       font-size: clamp(82px, 7vw, 122px);
@@ -140,15 +130,6 @@
       height: 7px;
       border-radius: 36px 36px 0 0;
       background: linear-gradient(90deg, var(--era-pink), var(--era-orange), var(--era-purple));
-    }
-
-    .card-label {
-      color: var(--muted);
-      font-size: 19px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      font-weight: 700;
-      margin-bottom: 26px;
     }
 
     .weeks { display: grid; gap: 28px; }
@@ -216,24 +197,6 @@
       align-items: center;
     }
 
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 18px;
-      color: rgba(255,255,255,0.78);
-      font-size: 15px;
-      font-weight: 700;
-    }
-
-    .chip::before {
-      content: "";
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--era-pink), var(--era-orange));
-    }
-
     .status {
       color: var(--muted);
       font-size: 28px;
@@ -260,429 +223,44 @@
 
   <main class="page">
     <section class="hero" aria-label="Chore planning">
-      
       <h1 class="title">Chore planning</h1>
       <div class="accent-line"></div>
       <div class="subline" id="today-copy"></div>
     </section>
 
     <section class="schedule-card" aria-label="Chore planning this week and next week">
-      
       <div id="weeks" class="weeks">
-        <section class="week-block">
-          <header class="week-head">
-            <h2 class="week-title">This Week · Week 27</h2>
-            
-          </header>
-          <div class="days">
-          <article class="day " data-date="2026-06-29">
-            <div class="day-name">Monday · 29-06</div>
-            <div class="team">Brand Activations</div>
-          </article>
-          <article class="day today" data-date="2026-06-30" style="background: linear-gradient(135deg, rgba(255, 46, 99, 0.34), rgba(255, 122, 26, 0.20)); box-shadow: inset 0 0 0 2px rgba(255,46,99,0.72), 0 0 26px rgba(255,46,99,0.18);">
-            <div class="day-name">Tuesday · 30-06</div>
-            <div class="team">Office Operations</div>
-          </article>
-          <article class="day " data-date="2026-07-01">
-            <div class="day-name">Wednesday · 01-07</div>
-            <div class="team">Client Services</div>
-          </article>
-          <article class="day " data-date="2026-07-02">
-            <div class="day-name">Thursday · 02-07</div>
-            <div class="team">Production</div>
-          </article>
-          <article class="day " data-date="2026-07-03">
-            <div class="day-name">Friday · 03-07</div>
-            <div class="team">Rights Management</div>
-          </article></div>
-        </section>
-        <section class="week-block">
-          <header class="week-head">
-            <h2 class="week-title">Next Week · Week 28</h2>
-            
-          </header>
-          <div class="days">
-          <article class="day " data-date="2026-07-06">
-            <div class="day-name">Monday · 06-07</div>
-            <div class="team">Project Management</div>
-          </article>
-          <article class="day " data-date="2026-07-07">
-            <div class="day-name">Tuesday · 07-07</div>
-            <div class="team">Brand Activations</div>
-          </article>
-          <article class="day " data-date="2026-07-08">
-            <div class="day-name">Wednesday · 08-07</div>
-            <div class="team">Project Management</div>
-          </article>
-          <article class="day " data-date="2026-07-09">
-            <div class="day-name">Thursday · 09-07</div>
-            <div class="team">Client Services</div>
-          </article>
-          <article class="day " data-date="2026-07-10">
-            <div class="day-name">Friday · 10-07</div>
-            <div class="team">eCommerce + Office Operations</div>
-          </article></div>
-        </section></div>
+        <div class="status">Loading schedule...</div>
+      </div>
     </section>
   </main>
 
   <script>
-    const ROOSTER = [
-  {
-    "week": 27,
-    "quarter": "Q2",
-    "start": "2026-06-29",
-    "days": {
-      "Monday": "Brand Activations",
-      "Tuesday": "Office Operations",
-      "Wednesday": "Client Services",
-      "Thursday": "Production",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 28,
-    "quarter": "Q3",
-    "start": "2026-07-06",
-    "days": {
-      "Monday": "Project Management",
-      "Tuesday": "Brand Activations",
-      "Wednesday": "Project Management",
-      "Thursday": "Client Services",
-      "Friday": "eCommerce + Office Operations"
-    }
-  },
-  {
-    "week": 29,
-    "quarter": "Q3",
-    "start": "2026-07-13",
-    "days": {
-      "Monday": "Production",
-      "Tuesday": "Office Operations",
-      "Wednesday": "eCommerce",
-      "Thursday": "Rights Management",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 30,
-    "quarter": "Q3",
-    "start": "2026-07-20",
-    "days": {
-      "Monday": "Brand Activations",
-      "Tuesday": "Client Services",
-      "Wednesday": "Project Management",
-      "Thursday": "Production",
-      "Friday": "eCommerce + Office Operations"
-    }
-  },
-  {
-    "week": 31,
-    "quarter": "Q3",
-    "start": "2026-07-27",
-    "days": {
-      "Monday": "Production",
-      "Tuesday": "Brand Activations",
-      "Wednesday": "Client Services",
-      "Thursday": "Project Management",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 32,
-    "quarter": "Q3",
-    "start": "2026-08-03",
-    "days": {
-      "Monday": "Production",
-      "Tuesday": "Client Services",
-      "Wednesday": "eCommerce",
-      "Thursday": "Rights Management",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 33,
-    "quarter": "Q3",
-    "start": "2026-08-10",
-    "days": {
-      "Monday": "eCommerce",
-      "Tuesday": "Office Operations",
-      "Wednesday": "Project Management",
-      "Thursday": "Brand Activations",
-      "Friday": "eCommerce + Office Operations"
-    }
-  },
-  {
-    "week": 34,
-    "quarter": "Q3",
-    "start": "2026-08-17",
-    "days": {
-      "Monday": "Brand Activations",
-      "Tuesday": "Production",
-      "Wednesday": "Client Services",
-      "Thursday": "Project Management",
-      "Friday": "eCommerce + Office Operations"
-    }
-  },
-  {
-    "week": 35,
-    "quarter": "Q3",
-    "start": "2026-08-24",
-    "days": {
-      "Monday": "Production",
-      "Tuesday": "Office Operations",
-      "Wednesday": "Project Management",
-      "Thursday": "Brand Activations",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 36,
-    "quarter": "Q3",
-    "start": "2026-08-31",
-    "days": {
-      "Monday": "Brand Activations",
-      "Tuesday": "Client Services",
-      "Wednesday": "eCommerce",
-      "Thursday": "Client Services",
-      "Friday": "eCommerce + Office Operations"
-    }
-  },
-  {
-    "week": 37,
-    "quarter": "Q3",
-    "start": "2026-09-07",
-    "days": {
-      "Monday": "Production",
-      "Tuesday": "Office Operations",
-      "Wednesday": "Project Management",
-      "Thursday": "Rights Management",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 38,
-    "quarter": "Q3",
-    "start": "2026-09-14",
-    "days": {
-      "Monday": "Brand Activations",
-      "Tuesday": "Client Services",
-      "Wednesday": "eCommerce",
-      "Thursday": "Production",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 39,
-    "quarter": "Q3",
-    "start": "2026-09-21",
-    "days": {
-      "Monday": "Project Management",
-      "Tuesday": "Brand Activations",
-      "Wednesday": "Client Services",
-      "Thursday": "Project Management",
-      "Friday": "eCommerce + Office Operations"
-    }
-  },
-  {
-    "week": 40,
-    "quarter": "Q3",
-    "start": "2026-09-28",
-    "days": {
-      "Monday": "Production",
-      "Tuesday": "Office Operations",
-      "Wednesday": "Project Management",
-      "Thursday": "Brand Activations",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 41,
-    "quarter": "Q4",
-    "start": "2026-10-05",
-    "days": {
-      "Monday": "Brand Activations",
-      "Tuesday": "Client Services",
-      "Wednesday": "eCommerce",
-      "Thursday": "Production",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 42,
-    "quarter": "Q4",
-    "start": "2026-10-12",
-    "days": {
-      "Monday": "Production",
-      "Tuesday": "Office Operations",
-      "Wednesday": "Client Services",
-      "Thursday": "Project Management",
-      "Friday": "eCommerce + Office Operations"
-    }
-  },
-  {
-    "week": 43,
-    "quarter": "Q4",
-    "start": "2026-10-19",
-    "days": {
-      "Monday": "Brand Activations",
-      "Tuesday": "Client Services",
-      "Wednesday": "Project Management",
-      "Thursday": "Production",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 44,
-    "quarter": "Q4",
-    "start": "2026-10-26",
-    "days": {
-      "Monday": "Production",
-      "Tuesday": "Brand Activations",
-      "Wednesday": "Client Services",
-      "Thursday": "Project Management",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 45,
-    "quarter": "Q4",
-    "start": "2026-11-02",
-    "days": {
-      "Monday": "eCommerce",
-      "Tuesday": "Office Operations",
-      "Wednesday": "Project Management",
-      "Thursday": "Brand Activations",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 46,
-    "quarter": "Q4",
-    "start": "2026-11-09",
-    "days": {
-      "Monday": "Production",
-      "Tuesday": "Client Services",
-      "Wednesday": "eCommerce",
-      "Thursday": "Client Services",
-      "Friday": "eCommerce + Office Operations"
-    }
-  },
-  {
-    "week": 47,
-    "quarter": "Q4",
-    "start": "2026-11-16",
-    "days": {
-      "Monday": "Brand Activations",
-      "Tuesday": "Production",
-      "Wednesday": "Project Management",
-      "Thursday": "Rights Management",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 48,
-    "quarter": "Q4",
-    "start": "2026-11-23",
-    "days": {
-      "Monday": "Production",
-      "Tuesday": "Office Operations",
-      "Wednesday": "Client Services",
-      "Thursday": "Brand Activations",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 49,
-    "quarter": "Q4",
-    "start": "2026-11-30",
-    "days": {
-      "Monday": "Project Management",
-      "Tuesday": "Brand Activations",
-      "Wednesday": "Project Management",
-      "Thursday": "Client Services",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 50,
-    "quarter": "Q4",
-    "start": "2026-12-07",
-    "days": {
-      "Monday": "Production",
-      "Tuesday": "Office Operations",
-      "Wednesday": "eCommerce",
-      "Thursday": "Brand Activations",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 51,
-    "quarter": "Q4",
-    "start": "2026-12-14",
-    "days": {
-      "Monday": "Project Management",
-      "Tuesday": "Client Services",
-      "Wednesday": "Project Management",
-      "Thursday": "Production",
-      "Friday": "Rights Management"
-    }
-  },
-  {
-    "week": 52,
-    "quarter": "Q4",
-    "start": "2026-12-21",
-    "days": {
-      "Monday": "Brand Activations",
-      "Tuesday": "Production",
-      "Wednesday": "Client Services",
-      "Thursday": "Brand Activations",
-      "Friday": "eCommerce + Office Operations"
-    }
-  },
-  {
-    "week": 53,
-    "quarter": "Q4",
-    "start": "2026-12-28",
-    "days": {
-      "Monday": "Production",
-      "Tuesday": "Client Services",
-      "Wednesday": "Project Management",
-      "Thursday": "Rights Management",
-      "Friday": ""
-    }
-  }
-];
-
+    const ROSTER_URL = "roster.json";
     const DAY_KEYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-    const DAY_LABELS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-    let lastRenderedWeekStart = "";
+    let roster = [];
 
-    function pad(n) { return n < 10 ? "0" + n : "" + n; }
+    function pad(n) {
+      return n < 10 ? "0" + n : "" + n;
+    }
 
     function dateFromISO(value) {
-      const parts = value.split("-").map(Number);
+      const parts = String(value).split("-").map(Number);
       return new Date(parts[0], parts[1] - 1, parts[2]);
     }
 
     function addDays(date, days) {
-      const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      const d = new Date(date.getTime());
       d.setDate(d.getDate() + days);
       return d;
     }
 
-    function formatDate(date) { return pad(date.getDate()) + "-" + pad(date.getMonth() + 1); }
+    function formatDate(date) {
+      return pad(date.getDate()) + "-" + pad(date.getMonth() + 1);
+    }
 
     function dateKey(date) {
       return date.getFullYear() + "-" + pad(date.getMonth() + 1) + "-" + pad(date.getDate());
-    }
-
-    function isoWeek(date) {
-      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-      const dayNum = d.getUTCDay() || 7;
-      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-      return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
     }
 
     function startOfISOWeek(date) {
@@ -693,9 +271,12 @@
       return d;
     }
 
-    function findWeekByStart(startDate) {
-      const key = dateKey(startDate);
-      return ROOSTER.find(item => item.start === key);
+    function isoWeek(date) {
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const dayNum = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
     }
 
     function escapeHtml(value) {
@@ -707,6 +288,11 @@
         .replace(/'/g, "&#039;");
     }
 
+    function findRosterIndexForWeekStart(weekStart) {
+      const key = dateKey(weekStart);
+      return roster.findIndex(item => item.start === key);
+    }
+
     function renderWeek(item, label, today) {
       const start = dateFromISO(item.start);
       const end = addDays(start, 4);
@@ -715,20 +301,22 @@
       DAY_KEYS.forEach((key, index) => {
         const dayDate = addDays(start, index);
         const isToday = dateKey(dayDate) === dateKey(today);
-        const team = item.days[key] || "No chore duty";
+        const team = item.days && item.days[key] ? item.days[key] : "No chore duty";
 
         dayHtml += `
           <article class="day ${isToday ? "today" : ""}" data-date="${dateKey(dayDate)}">
-            <div class="day-name">${DAY_LABELS[index]} · ${formatDate(dayDate)}</div>
+            <div class="day-name">${key} · ${formatDate(dayDate)}</div>
             <div class="team">${escapeHtml(team)}</div>
           </article>`;
       });
 
+      const quarter = item.quarter ? ` · ${escapeHtml(item.quarter)}` : "";
+
       return `
         <section class="week-block">
           <header class="week-head">
-            <h2 class="week-title">${label} · Week ${item.week}</h2>
-            <div class="week-range">${formatDate(start)} until ${formatDate(end)} · ${escapeHtml(item.quarter)}</div>
+            <h2 class="week-title">${label} · Week ${isoWeek(start)}</h2>
+            <div class="week-range">${formatDate(start)} to ${formatDate(end)}${quarter}</div>
           </header>
           <div class="days">${dayHtml}</div>
         </section>`;
@@ -736,56 +324,49 @@
 
     function render() {
       const today = new Date();
-      const currentStart = startOfISOWeek(today);
-      const nextStart = addDays(currentStart, 7);
-      const current = findWeekByStart(currentStart);
-      const next = findWeekByStart(nextStart);
+      const weekStart = startOfISOWeek(today);
+      const currentIndex = findRosterIndexForWeekStart(weekStart);
       const container = document.getElementById("weeks");
       const copy = document.getElementById("today-copy");
-      const currentWeek = isoWeek(today);
 
-      if (copy) copy.textContent = "";
+      copy.textContent = "";
 
-      if (!current && !next) {
-        container.innerHTML = `<div class="status">No schedule found for week ${currentWeek} and week ${isoWeek(addDays(today, 7))}.</div>`;
+      if (currentIndex === -1) {
+        container.innerHTML = `<div class="status">No schedule found for the week starting ${dateKey(weekStart)}.</div>`;
         return;
       }
 
-      let html = "";
-      if (current) html += renderWeek(current, "This Week", today);
-      if (next) html += renderWeek(next, "Next Week", today);
+      const current = roster[currentIndex];
+      const next = roster[currentIndex + 1];
+
+      let html = renderWeek(current, "This Week", today);
+      if (next) {
+        html += renderWeek(next, "Next Week", today);
+      } else {
+        html += `<div class="status">No schedule found for next week.</div>`;
+      }
+
       container.innerHTML = html;
-      lastRenderedWeekStart = dateKey(currentStart);
     }
 
-    function refreshTodayHighlight() {
-      const today = new Date();
-      const currentStartKey = dateKey(startOfISOWeek(today));
+    async function loadRoster() {
+      const container = document.getElementById("weeks");
 
-      if (currentStartKey !== lastRenderedWeekStart) {
+      try {
+        const response = await fetch(ROSTER_URL + "?v=" + Date.now(), { cache: "no-store" });
+        if (!response.ok) throw new Error("Roster could not be loaded");
+        roster = await response.json();
+        roster.sort((a, b) => a.start.localeCompare(b.start));
         render();
-        return;
+      } catch (error) {
+        container.innerHTML = `<div class="status">Schedule could not be loaded. Check if roster.json is available next to this HTML file.</div>`;
       }
-
-      const todayKey = dateKey(today);
-      document.querySelectorAll(".day").forEach(day => {
-        day.classList.toggle("today", day.getAttribute("data-date") === todayKey);
-      });
     }
 
-    function millisecondsUntilNextRefresh() {
-      const now = new Date();
-      const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 2, 0, 0);
-      return next.getTime() - now.getTime();
-    }
-
-    render();
-    setInterval(refreshTodayHighlight, 60 * 1000);
-    setInterval(render, 30 * 60 * 1000);
-    setTimeout(function () {
-      render();
-      setInterval(render, 24 * 60 * 60 * 1000);
-    }, millisecondsUntilNextRefresh());
+    loadRoster();
+    setInterval(render, 60 * 1000);
+    setInterval(loadRoster, 30 * 60 * 1000);
+    setTimeout(function () { window.location.reload(); }, 6 * 60 * 60 * 1000);
   </script>
-
-</body></html>
+</body>
+</html>
